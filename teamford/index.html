@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NINETYNINE - TEAMFORD</title>
+    <!-- นำเข้าฟอนต์ Google Fonts สไตล์โมเดิร์นดิจิทัล -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Overlay เงาสีดำทับพื้นหลัง -->
+    <div class="overlay"></div>
+
+    <!-- ================= PAGE 1: หน้าหลัก Landing Page ================= -->
+    <div class="main-container page active" id="homePage">
+        <!-- ชื่อหลักด้านบน -->
+        <h1 class="brand-title animate-item">NINETYNINE</h1>
+        <p class="brand-subtitle">BORN OF TEAMFORD</p>
+
+        <!-- การ์ดกระจกฝ้าโปร่งแสงตรงกลาง -->
+        <div class="glass-card animate-item">
+            <div class="crown-icon">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3c0 .6-.4 1-1 1H6c-.6 0-1-.4-1-1v-1h14v1z"/>
+                </svg>
+            </div>
+            <h2 class="card-headline">TEAMFORD<br>TIME TO END</h2>
+            <div class="card-subtext">
+                <p>STANDING IN THE</p>
+                <h3>NINETYNINE</h3>
+            </div>
+        </div>
+
+        <!-- แถบปุ่มด้านล่าง -->
+        <div class="partner-grid animate-item">
+            <button type="button" class="partner-card active" onclick="showPage('memberPage')">
+                <span class="name">TEAMFORD</span>
+                <span class="role">PARTNER</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- ================= PAGE 2: หน้ารายชื่อสมาชิก TEAMFORD ================= -->
+    <div class="main-container page" id="memberPage">
+        <!-- ปุ่มย้อนกลับหน้าหลัก -->
+        <button type="button" class="back-btn animate-item" onclick="showPage('homePage')">← BACK TO HOME</button>
+
+        <h1 class="brand-title animate-item">TEAMFORD</h1>
+        <p class="brand-subtitle animate-item">TEAMFORD MEMBERS</p>
+
+        <!-- ช่องค้นหารายชื่อ -->
+        <div class="search-box animate-item">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchInput" placeholder="SEARCH MEMBERS..." onkeyup="searchMember()">
+        </div>
+
+        <!-- โครงสร้างหมวดหมู่สมาชิก (MEMBERS) -->
+        <div class="members-section animate-item">
+            <div class="section-header">
+                <h2>MEMBERS <span id="memberCount">/ 03</span></h2>
+            </div>
+            
+            <!-- รายชื่อสมาชิก 3 คน -->
+            <div class="members-grid" id="membersGrid">
+                <div class="member-card">
+                    <div class="member-badge">TEAMFORD</div>
+                    <div class="member-info">
+                        <h3 class="member-name">Xwang Teamford</h3>
+                        <span class="member-role">MEMBER</span>
+                    </div>
+                </div>
+
+                <div class="member-card">
+                    <div class="member-badge">TEAMFORD</div>
+                    <div class="member-info">
+                        <h3 class="member-name">Jack Teamford</h3>
+                        <span class="member-role">MEMBER</span>
+                    </div>
+                </div>
+
+                <div class="member-card">
+                    <div class="member-badge">TEAMFORD</div>
+                    <div class="member-info">
+                        <h3 class="member-name">Jay Teamford</h3>
+                        <span class="member-role">MEMBER</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- เครดิตผู้ออกแบบ -->
+    <div class="credit-footer">SYSTEM DESIGN BY MALI CLOUD</div>
+
+    <!-- ================= ADVANCED MUSIC PLAYER WIDGET ================= -->
+    <div class="music-widget-wrapper">
+        <audio id="bgMusic" loop preload="auto">
+            <source src="song.mp3" type="audio/mp3">
+        </audio>
+
+        <!-- หน้าต่างขยาย (Expanded Player Popup) -->
+        <div class="music-popup" id="musicPopup">
+            <div class="popup-header">
+                <span class="popup-status"><span class="status-dot"></span> NOW PLAYING</span>
+                <button class="popup-close-btn" onclick="togglePopup(event)">⌵</button>
+            </div>
+            <div class="popup-body">
+                <div class="popup-cover">
+                    <img src="cover.jpg" alt="Cover" id="popupCoverImg">
+                </div>
+                <div class="popup-info">
+                    <h4 class="popup-song-title">IS THERE SOMEONE ELSE?</h4>
+                    <p class="popup-artist">THE WEEKND</p>
+                </div>
+            </div>
+            <div class="popup-progress-container">
+                <input type="range" id="progressBar" class="progress-bar" value="0" min="0" max="100" oninput="seekMusic(this.value)">
+                <div class="time-stamps">
+                    <span id="currentTime">0:00</span>
+                    <span id="durationTime">0:00</span>
+                </div>
+            </div>
+            <div class="popup-controls">
+                <div class="volume-container">
+                    <span class="volume-icon">🔊</span>
+                    <input type="range" id="volumeBar" class="volume-bar" value="30" min="0" max="100" oninput="changeVolume(this.value)">
+                </div>
+                <button class="play-btn-main" onclick="togglePlay(event)">
+                    <span id="mainPlayIcon">▶</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- แถบมินิมอลแคปซูล (Mini Bar) -->
+        <div class="music-mini-bar" id="musicMiniBar" onclick="togglePopup(event)">
+            <div class="mini-cover-wrapper" onclick="togglePlay(event)">
+                <img src="cover.jpg" alt="Cover" id="miniCoverImg">
+                <div class="mini-play-overlay">
+                    <span id="miniPlayIcon">▶</span>
+                </div>
+            </div>
+            <div class="mini-info">
+                <span class="mini-label">MUSIC</span>
+                <span class="mini-song-title">IS THERE SOMEONE...</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- สคริปต์สลับหน้าและเครื่องเล่นเพลงสุดสมูท -->
+    <script>
+        // ระบบสลับหน้า
+        function showPage(targetPageId) {
+            const currentPage = document.querySelector('.page.active');
+            const targetPage = document.getElementById(targetPageId);
+
+            if (currentPage === targetPage) return;
+
+            currentPage.classList.add('fade-out');
+
+            setTimeout(() => {
+                currentPage.classList.remove('active', 'fade-out');
+                targetPage.classList.add('active');
+            }, 300);
+        }
+
+        // ระบบค้นหาสมาชิก
+        function searchMember() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let cards = document.querySelectorAll('.member-card');
+
+            cards.forEach(card => {
+                let name = card.querySelector('.member-name').textContent.toLowerCase();
+                if (name.includes(input)) {
+                    card.style.display = "flex";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+
+        // ================= MUSIC PLAYER LOGIC =================
+        const music = document.getElementById('bgMusic');
+        const musicPopup = document.getElementById('musicPopup');
+        const musicMiniBar = document.getElementById('musicMiniBar');
+        const miniPlayIcon = document.getElementById('miniPlayIcon');
+        const mainPlayIcon = document.getElementById('mainPlayIcon');
+        const progressBar = document.getElementById('progressBar');
+        const volumeBar = document.getElementById('volumeBar');
+        const currentTimeEl = document.getElementById('currentTime');
+        const durationTimeEl = document.getElementById('durationTime');
+
+        music.volume = 0.3; // ความดังเริ่มต้น 30%
+
+        // เล่น / หยุด เพลง
+        async function togglePlay(e) {
+            if (e) e.stopPropagation();
+            try {
+                if (music.paused) {
+                    await music.play();
+                    updatePlayUI(true);
+                } else {
+                    music.pause();
+                    updatePlayUI(false);
+                }
+            } catch (err) {
+                console.log("Audio play error: ", err);
+            }
+        }
+
+        // อัปเดต UI ปุ่มเล่น/หยุด
+        function updatePlayUI(isPlaying) {
+            if (isPlaying) {
+                miniPlayIcon.textContent = "❚❚";
+                mainPlayIcon.textContent = "❚❚";
+                musicMiniBar.classList.add('playing');
+            } else {
+                miniPlayIcon.textContent = "▶";
+                mainPlayIcon.textContent = "▶";
+                musicMiniBar.classList.remove('playing');
+            }
+        }
+
+        // เปิด / ปิด หน้าต่างใหญ่ (Popup)
+        function togglePopup(e) {
+            musicPopup.classList.toggle('active');
+        }
+
+        // อัปเดตเวลาเพลงและแถบ Progress
+        music.addEventListener('timeupdate', () => {
+            if (music.duration) {
+                const progressPercent = (music.currentTime / music.duration) * 100;
+                progressBar.value = progressPercent;
+                currentTimeEl.textContent = formatTime(music.currentTime);
+                durationTimeEl.textContent = formatTime(music.duration);
+            }
+        });
+
+        // ลากเปลี่ยนช่วงเพลง
+        function seekMusic(val) {
+            if (music.duration) {
+                music.currentTime = (val / 100) * music.duration;
+            }
+        }
+
+        // ปรับระดับเสียง
+        function changeVolume(val) {
+            music.volume = val / 100;
+        }
+
+        // แปลงวินาทีเป็นนาที:วินาที
+        function formatTime(seconds) {
+            const min = Math.floor(seconds / 60);
+            const sec = Math.floor(seconds % 60);
+            return `${min}:${sec < 10 ? '0' : ''}${sec}`;
+        }
+
+        // ปลดล็อกให้เพลงเล่นอัตโนมัติทันทีเมื่อผู้ใช้คลิกส่วนไหนก็ได้ของหน้าเว็บครั้งแรก
+        document.body.addEventListener('click', function startAudioOnFirstClick() {
+            if (music.paused) {
+                music.play().then(() => {
+                    updatePlayUI(true);
+                }).catch(e => console.log(e));
+            }
+        }, { once: true });
+    </script>
+</body>
+</html>
